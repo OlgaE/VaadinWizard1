@@ -117,11 +117,7 @@ public class MyVaadinUI extends UI
                     } else if (optiongroup.getValue().equals("Z-Wave")) {
                         setDeviceChoice("Z-Wave");
                         wizard.getNextButton().setEnabled(true);
-                    } else if(optiongroup.getValue().equals("")){
-                        errorMessage.setValue("Необходимо выбрать тип оборудования");
-                        errorMessage.setVisible(true);
-                        wizard.getNextButton().setEnabled(false);
-                    }
+                    } 
                 }
             });
             
@@ -185,9 +181,9 @@ public class MyVaadinUI extends UI
 				}
 			});
 				
-            Label label = new Label("Step2");
-            
-            content.addComponent(label);
+            Label label = new Label();
+            label.setCaption(getDeviceChoice());
+            content.addComponent(label);            
             content.addComponent(errorMessage);
             return content;
 		}
@@ -222,13 +218,12 @@ public class MyVaadinUI extends UI
 				
 				@Override
 				public void wizardCompleted(WizardCompletedEvent event) {
-					// TODO Auto-generated method stub
-					
+					wizard.setVisible(false);
+                    close();
 				}
 				
 				@Override
 				public void wizardCancelled(WizardCancelledEvent event) {
-					// TODO Auto-generated method stub
 					
 				}
 				
