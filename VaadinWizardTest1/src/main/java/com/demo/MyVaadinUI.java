@@ -63,10 +63,6 @@ public class MyVaadinUI extends UI
         wizard.addStep(new Step3());
 
         layout.addComponent(wizard);
-    	
-    	//window.setContent(layout);
-    	//window.setHeight(500, Unit.PIXELS);
-    	//addWindow(window);
     }
 
     private class Step1 implements WizardStep{
@@ -132,16 +128,6 @@ public class MyVaadinUI extends UI
             content.addComponent(optiongroup);
             content.addComponent(errorMessage);
             content.addComponent(simpleMessage);
-            
-            /*wizard.getCancelButton().addClickListener(new Button.ClickListener() {
-                @Override
-                public void buttonClick(Button.ClickEvent event) {
-
-                    wizard.setVisible(false);
-                    close();
-                }
-
-            });*/
             return content;
 		}
 
@@ -171,6 +157,7 @@ public class MyVaadinUI extends UI
 		public Component getContent() {
 			VerticalLayout content = new VerticalLayout();
 
+			//wizard.getNextButton().setEnabled(true);
 			wizard.addListener(new WizardProgressListener() {
 				
 				@Override
@@ -192,6 +179,7 @@ public class MyVaadinUI extends UI
 				
 				@Override
 				public void activeStepChanged(WizardStepActivationEvent event) {
+					event.getWizard().getFinishButton().setEnabled(false);
 					event.getWizard().getCancelButton().setEnabled(false);
 					event.getWizard().getBackButton().setEnabled(false);
 				}
@@ -207,7 +195,7 @@ public class MyVaadinUI extends UI
 		@Override
 		public boolean onAdvance() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 
 		@Override
@@ -230,6 +218,32 @@ public class MyVaadinUI extends UI
 		public Component getContent() {
 			VerticalLayout content = new VerticalLayout();
 
+			wizard.addListener(new WizardProgressListener() {
+				
+				@Override
+				public void wizardCompleted(WizardCompletedEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void wizardCancelled(WizardCancelledEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void stepSetChanged(WizardStepSetChangedEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void activeStepChanged(WizardStepActivationEvent event) {
+					event.getWizard().getFinishButton().setEnabled(true);
+				}
+			});
+			
             Label label = new Label("Step3");
             
             content.addComponent(label);
@@ -240,7 +254,7 @@ public class MyVaadinUI extends UI
 		@Override
 		public boolean onAdvance() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 
 		@Override
